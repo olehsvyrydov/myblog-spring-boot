@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Simple Blog - Feed</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body id="feed-page">
+<header>
+    <h1>My Simple Blog</h1>
+    <!-- Tag Filters -->
+    <nav>
+        <label for="tag-filter">Filter by Tag:</label>
+        <form th:action="@{/posts}" method="get" id="filterForm">
+            <select id="tag-filter" name="tag-filter" onchange="this.form.submit()">
+                <option th:value="'all'" th:selected="${selectedTag == 'all'}">All</option>
+                <option th:each="tag : ${allTags}"
+                        th:value="${tag}"
+                        th:text="${tag}"
+                        th:selected="${selectedTag == tag}">
+                </option>
+            </select>
+            <input type="hidden" name="offset" th:value="${offset}" />
+            <input type="hidden" name="limit" th:value="${limit}" />
+        </form>
+
+        <label for="pagination-limit">Posts per page:</label>
+        <form  th:action="@{/posts}" method="get" id="limitForm">
+            <select id="pagination-limit" name="limit" onchange="document.getElementById('limitForm').submit()">
+                <option th:value="10" th:text="10" th:selected="${limit == 10}">10</option>
+                <option th:value="20" th:text="20" th:selected="${limit == 20}">20</option>
+                <option th:value="50" th:text="50" th:selected="${limit == 50}">50</option>
+            </select>
+            <input type="hidden" name="offset" th:value="${offset}" />
+        </form>
+    </nav>
+</header>
+
+<main>
+    <!-- Post Feed -->
+    <section class="posts-list">
+        <table>
+            <tr th:each="post : ${posts}">
+                <td>
+                    <!-- Example of One Post Preview -->
+                    <article class="post-preview">
+                        <img th:src="@{${post.imageUrl}}" src="../../images/pexels-366671-991831.jpg" alt="Post Image 1"/>
+                        <div class="post-info">
+                            <h2><a th:href="|@{/posts/}${post.id}|" th:text="${post.title}">Simple post title</a></h2>
+                            <div class="short-desc" th:text="${post.description}">
+                                A short description. Not more than three lines of text.
+                            </div>
+                            <p class="post-stats">
+                                <span th:text="${post.commentsCount}">5</span><span th:text="(${post.commentsCount} == 1) ? (' Comment') : (' Comments')"> Comments</span> |
+                                <span th:text="${post.likesCount}">100</span><span th:text="(${post.commentsCount} == 1) ? (' Like') : (' Likes')"> Likes</span> |
+                                <span class="tags">Tags: <em th:text="${#strings.toString(post.tags)}">tag1, tag2</em></span>
+                            </p>
+                        </div>
+                    </article>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <!-- Previous Link -->
+        <a th:if="${offset > 0}"
+           th:href="@{/posts(offset=${offset - limit}, limit=${limit})}"
+           class="pagination-btn">Previous</a>
+        <span th:if="${offset <= 0}" class="pagination-btn disabled">Previous</span>
+
+        <!-- Page Numbers -->
+        <span th:with="totalPages=${(totalPosts % limit == 0) ? totalPosts/limit : (totalPosts/limit) + 1}">
+            <a th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+               th:href="@{/posts(offset=${pageNum * limit}, limit=${limit})}"
+               th:text="${pageNum + 1}"
+               th:classappend="${(offset/limit) == pageNum} ? ' active' : ''"
+               class="pagination-btn">
+            </a>
+        </span>
+
+        <!-- Next Link -->
+        <a th:if="${offset + limit < totalPosts}"
+           th:href="@{/posts(offset=${offset + limit}, limit=${limit})}"
+           class="pagination-btn">Next</a>
+        <span th:if="${offset + limit >= totalPosts}" class="pagination-btn disabled">Next</span>
+    </div>
+
+    <!-- Button to Add a New Post -->
+    <button class="add-post-btn" id="show-add-post-form">Add Post</button>
+
+    <!-- Popup for Adding Post -->
+    <section id="add-post-popup" class="hidden">
+        <div class="popup-content">
+            <h3>Add New Post</h3>
+            <form class="add-post-form" action="#" th:action="@{/posts}" th:object="${post}" enctype="multipart/form-data" method="POST">
+                <label for="add-title">Title:</label>
+                <input type="text" id="add-title" name="title" placeholder="Start writing a title here..." required="required">
+                <label for="add-image-upload">Upload Image:</label>
+                <input type="file" id="add-image-upload" name="image" accept="image/*" onchange="previewImage(event)">
+                <img id="add-image" src="" alt="Post Image Preview" />
+                <label for="add-description">Post Description:</label>
+                <textarea id="add-description" rows="3" name="description" placeholder="Add short description here..." required="required"></textarea>
+                <label for="add-text">Post Content:</label>
+                <textarea id="add-text" rows="10" name="content" placeholder="Add content here..." required="required"></textarea>
+                <label for="add-tags">Tags (comma separated):</label>
+                <input type="text" id="add-tags" name="tags" placeholder="Your tags here...">
+                <div class="popup-actions">
+                    <button class="save-btn" type="submit">Save Changes</button>
+                    <button class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
