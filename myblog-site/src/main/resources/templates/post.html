@@ -43,7 +43,7 @@
         <!-- Buttons: Remove, Edit, Like -->
         <div class="post-actions">
             <form th:action="@{/posts/{id}(id=${post.id})}" method="post" style="display:inline;">
-                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="_method" value="delete" />
                 <button class="remove-post-btn" type="submit">Remove Post</button>
             </form>
             <button class="edit-post-btn">Edit Post</button>
@@ -75,11 +75,11 @@
     <div class="popup-content">
         <h3>Edit Post</h3>
         <form action="#" th:action="@{/posts/{id}(id=${post.id})}" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="_method" value="put">
+            <input type="hidden" name="_method" value="put" />
             <label for="edit-title">Title:</label>
             <input type="text" id="edit-title" name="title" th:value="${post.title}" value="Simple post title" />
             <label for="edit-image-upload">Upload Image:</label>
-            <input type="file" id="edit-image-upload" name="image" onchange="previewImage(event)">
+            <input type="file" id="edit-image-upload" name="image" onchange="previewImage(event)" />
             <img id="edit-image" th:src="@{${post.imageUrl}}" th:value="${post.image}" alt="Post Image Preview" />
             <label for="add-description">Post Description:</label>
             <textarea id="add-description" rows="3" name="description" th:text="${post.description}" th:value="${post.description}" placeholder="Add short description here..."></textarea>
@@ -99,13 +99,11 @@
 <div id="comment-popup" class="hidden">
     <div class="popup-content">
         <h3>Add Comment</h3>
-<!--?        <form action="#" th:action="@{/posts/{id}/comments(id=${post.id})}" method="post">-->
             <textarea id="new-comment" name="content" rows="5" placeholder="Write your comment..."></textarea>
             <div class="popup-actions">
                 <button class="save-btn" type="submit">Save</button>
                 <button class="cancel-btn">Cancel</button>
             </div>
-<!--?        </form>-->
     </div>
 </div>
 

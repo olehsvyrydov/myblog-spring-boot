@@ -98,16 +98,16 @@
             <h3>Add New Post</h3>
             <form class="add-post-form" action="#" th:action="@{/posts}" th:object="${post}" enctype="multipart/form-data" method="POST">
                 <label for="add-title">Title:</label>
-                <input type="text" id="add-title" name="title" placeholder="Start writing a title here..." required="required">
+                <input type="text" id="add-title" name="title" placeholder="Start writing a title here..." required="required" />
                 <label for="add-image-upload">Upload Image:</label>
-                <input type="file" id="add-image-upload" name="image" accept="image/*" onchange="previewImage(event)">
+                <input type="file" id="add-image-upload" name="image" accept="image/*" onchange="previewImage(event)" />
                 <img id="add-image" src="" alt="Post Image Preview" />
                 <label for="add-description">Post Description:</label>
                 <textarea id="add-description" rows="3" name="description" placeholder="Add short description here..." required="required"></textarea>
                 <label for="add-text">Post Content:</label>
                 <textarea id="add-text" rows="10" name="content" placeholder="Add content here..." required="required"></textarea>
                 <label for="add-tags">Tags (comma separated):</label>
-                <input type="text" id="add-tags" name="tags" placeholder="Your tags here...">
+                <input type="text" id="add-tags" name="tags" placeholder="Your tags here..." />
                 <div class="popup-actions">
                     <button class="save-btn" type="submit">Save Changes</button>
                     <button class="cancel-btn">Cancel</button>

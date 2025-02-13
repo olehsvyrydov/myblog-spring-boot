@@ -19,7 +19,7 @@ public interface PostRepository {
 
     void delete(long postId);
 
-    void addComment(CommentDto comment);
+    long addComment(CommentDto comment);
 
     void updateComment(CommentDto comment);
 

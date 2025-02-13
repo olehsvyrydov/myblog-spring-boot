@@ -1,4 +1,4 @@
-package org.javaprojects.myblogsite;
+package org.javaprojects.myblogsite.configuration;
 
 import org.javaprojects.myblogsite.services.StorageService;
 import org.springframework.context.annotation.Configuration;

@@ -6,13 +6,16 @@ spring:
   sql:
     init:
       schema-locations: classpath:/db/schema.sql
+      data-locations: []
 
+  # database
   datasource:
     url: jdbc:h2:mem:myblog;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: root
     password: root
     driver-class-name: org.h2.Driver
 
+  # multipart definition
   servlet:
     multipart:
       enabled: true # Enable multipart file uploads (enabled by default)
@@ -26,15 +29,13 @@ logging:
     org.javaprojects: DEBUG
     org.springframework.boot.sql.init: DEBUG
 
-
-
 # specifies a URI for uploading that is inside the project.
 # it must end with a name of the directory that specified in 'application.images.image-directory' property
 # Ex: if application.images.image-directory=/upload
-#     then:  application.images.upload-directory=file:/home/user/myblog/src/main/webapp/upload
-# you can use only 'file:' or 'classpath:' schemes of location.
+#     then:  application.images.upload-directory=file:/home/user/myblog/upload
+# you can use only 'file:' schemes of location.
 application:
   images:
     upload-directory-location-path: classpath:/static/upload
     upload-directory-handler-path: /upload
-    default-image-path: /images/default_image.jpg
+    default-image-path: /static/images/default_image.jpg

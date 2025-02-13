@@ -18,6 +18,17 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * JdbcPostRepository is a Spring repository that implements {@link PostRepository}
+ * to provide database layer functionality.
+ * <p>
+ * It depends on {@link DataSource} bean that will autoconfigured by Spring. The repository
+ * works with {@link JdbcClient} bean that is wrapper on {@link JdbcTemplate} bean and
+ * simplifies work with database calls. For batch operations {@link JdbcTemplate} still will be used.
+ * </p>
+ *
+ * @author Oleh Svyrysov
+ */
 @Repository
 public class JdbcPostRepository implements PostRepository {
     private static final Logger logger = LoggerFactory.getLogger(JdbcPostRepository.class);
@@ -124,15 +135,21 @@ public class JdbcPostRepository implements PostRepository {
 
     @Override
     public void delete(long postId) {
-        jdbcClient.sql("DELETE FROM posts WHERE id = ?").params(postId).update();
+        jdbcTemplate.update("DELETE FROM posts WHERE id = ?", postId);
     }
 
     @Override
-    public void addComment(CommentDto comment) {
+    public long addComment(CommentDto comment) {
         String sql = "INSERT INTO comments (post_id, content, created_at) VALUES (?,?,?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcClient.sql(sql)
                 .params(comment.getPostId(), comment.getContent(), comment.getCreatedAt())
-                .update();
+                .update(keyHolder);
+        Number key = keyHolder.getKey();
+        if (key != null) {
+            return key.longValue();
+        }
+        return -1;
     }
 
     @Override

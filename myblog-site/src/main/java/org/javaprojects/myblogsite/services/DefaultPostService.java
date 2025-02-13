@@ -11,6 +11,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * DefaultPostService is a Spring service that implements {@link PostService} that works in business layer
+ *
+ * @author Oleh Svyrysov
+ */
 @Service
 public class DefaultPostService implements PostService {
 

@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'org.javaprojects'
@@ -27,6 +28,20 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+bootJar {
+	archiveBaseName.set("myblogapp")
+	archiveVersion.set("")
+	archiveExtension.set("")
+	launchScript()
+}
+
+tasks.test {
+	useJUnitPlatform() // use JUnit 5
+}
+
+test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
 }

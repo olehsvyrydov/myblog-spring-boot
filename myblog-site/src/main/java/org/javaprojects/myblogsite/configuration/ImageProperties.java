@@ -1,15 +1,11 @@
 package org.javaprojects.myblogsite.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 
-@Component
+@ConfigurationProperties(prefix = "application.images")
 public record ImageProperties(
-        @Value("${application.images.upload-directory-location-path}")
-        Resource uploadResource,
-        @Value("${application.images.default-image-path:/images/default_image.jpg}")
+        Resource uploadDirectoryLocationPath,
         String defaultImagePath,
-        @Value("${application.images.upload-directory-handler-path:/images}")
-        String imageDirectory
+        String uploadDirectoryHandlerPath
 ) {}
