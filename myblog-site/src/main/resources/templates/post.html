@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="post-id" th:content="${post.id}"/>
+    <meta name="root" th:content="@{/}"/>
+    <title>Simple Blog - Single Post</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body id="post-page">
+<header>
+    <h1>My Simple Blog</h1>
+    <nav>
+        <a th:href="@{/}">Back to Home</a>
+    </nav>
+</header>
+
+<main>
+    <article class="single-post" id="single-post">
+        <h2 id="post-title" th:text="${post.title}">Simple title for the post</h2>
+        <img id="post-image" th:src="@{${post.imageUrl}}" src="../../images/pexels-366671-991831.jpg" alt="Post Image" />
+
+        <div id="post-container">
+            <div class="post-text" id="post-text" th:utext="${post.content}">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+                    convallis nisl sit amet nunc vestibulum, non finibus lectus venenatis.
+                </p>
+                <p>
+                    Quisque a libero eget lacus tincidunt auctor. Nam vitae augue
+                    dapibus, vestibulum odio id, volutpat felis.
+                </p>
+            </div>
+        </div>
+
+
+        <p class="tags" id="post-tags">
+            <strong>Tags:</strong> <em th:text="${post.tags}">tag1, tag2</em>
+        </p>
+
+        <!-- Buttons: Remove, Edit, Like -->
+        <div class="post-actions">
+            <form th:action="@{/posts/{id}(id=${post.id})}" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="delete" />
+                <button class="remove-post-btn" type="submit">Remove Post</button>
+            </form>
+            <button class="edit-post-btn">Edit Post</button>
+            <button class="like-post-btn">Like Post</button>
+            <span class="like-count">Likes: <em th:text="${likesCount}">10</em></span>
+        </div>
+    </article>
+
+    <!-- Comment Section -->
+    <section class="comments-section">
+        <h3 th:text="|Comments (${post.comments.size()})|">Comments (5)</h3>
+        <!-- Example list of comments -->
+        <ul class="comment-list" id="comment-list">
+            <li th:each="comment : ${post.comments}">
+                <div th:id="|comment-${comment.id}|">
+                    <div class="comment-text" th:text="${comment.content}">This is a comment text. Click to edit.</div>
+                    <button class="remove-comment-btn">X</button>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Add Comment Button -->
+        <button class="add-comment-btn">Add Comment</button>
+    </section>
+</main>
+
+<!-- Popup for Editing -->
+<div id="edit-post-popup" class="hidden">
+    <div class="popup-content">
+        <h3>Edit Post</h3>
+        <form action="#" th:action="@{/posts/{id}(id=${post.id})}" enctype="multipart/form-data" method="post">
+            <input type="hidden" name="_method" value="put" />
+            <label for="edit-title">Title:</label>
+            <input type="text" id="edit-title" name="title" th:value="${post.title}" value="Simple post title" />
+            <label for="edit-image-upload">Upload Image:</label>
+            <input type="file" id="edit-image-upload" name="image" onchange="previewImage(event)" />
+            <img id="edit-image" th:src="@{${post.imageUrl}}" th:value="${post.image}" alt="Post Image Preview" />
+            <label for="add-description">Post Description:</label>
+            <textarea id="add-description" rows="3" name="description" th:text="${post.description}" th:value="${post.description}" placeholder="Add short description here..."></textarea>
+            <label for="edit-text">Post Content:</label>
+            <textarea id="edit-text" name="content" th:text="${post.content}" th:value="${post.content}" rows="10"></textarea>
+            <label for="edit-tags">Tags (comma separated):</label>
+            <input type="text" id="edit-tags" name="tags" th:text="${post.tags}" th:value="${post.tags}" value="Tag1, tag2" />
+            <div class="popup-actions">
+                <button class="save-btn" type="submit">Save Changes</button>
+                <button class="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Popup for Adding Comments-->
+<div id="comment-popup" class="hidden">
+    <div class="popup-content">
+        <h3>Add Comment</h3>
+            <textarea id="new-comment" name="content" rows="5" placeholder="Write your comment..."></textarea>
+            <div class="popup-actions">
+                <button class="save-btn" type="submit">Save</button>
+                <button class="cancel-btn">Cancel</button>
+            </div>
+    </div>
+</div>
+
+<!-- Popup for Adding Comments-->
+<div id="edit-comment-popup" class="hidden">
+    <div class="popup-content">
+        <h3>Edit Comment</h3>
+        <textarea id="edit-comment" name="content" rows="5"></textarea>
+        <div class="popup-actions">
+            <button class="save-btn" type="submit">Save</button>
+            <button class="cancel-btn">Cancel</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

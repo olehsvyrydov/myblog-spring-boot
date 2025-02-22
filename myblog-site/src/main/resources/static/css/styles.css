@@ -1,0 +1,396 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body & Fonts */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+header h1 {
+    margin: 0;
+}
+header nav {
+    margin-top: 0.5rem;
+}
+header nav label {
+    margin-right: 0.5rem;
+}
+header nav select {
+    margin-right: 1rem;
+}
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main Container */
+main {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 1rem;
+}
+
+/* Post Feed - index.html */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.post-preview {
+    display: flex;
+    gap: 1rem;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    background: #fafafa;
+}
+.post-preview img {
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+}
+.post-info {
+    flex: 1;
+}
+.post-info h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+.post-info h2 a {
+    color: #333;
+    text-decoration: none;
+}
+.post-info h2 a:hover {
+    text-decoration: underline;
+}
+.short-desc {
+    margin: 0.5rem 0;
+    color: #666;
+}
+.post-stats {
+    font-size: 0.9rem;
+    color: #444;
+}
+.post-stats .tags em {
+    color: #777;
+}
+
+/* Pagination */
+.pagination {
+    text-align: center;
+    margin: 1rem 0;
+}
+.pagination-btn {
+    display: inline-block;
+    margin: 0 0.25rem;
+    padding: 0.5rem 1rem;
+    background: #eee;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+}
+.pagination-btn:hover {
+    background: #ccc;
+}
+
+/* Add Post Button and Form */
+.add-post-btn {
+    display: inline-block;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.add-post-btn:hover {
+    background: #555;
+}
+
+.add-post-form {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    background: #fafafa;
+    margin-top: 1rem;
+    margin-top: 1rem;
+}
+
+.add-post-form label {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.add-post-form input[type="text"],
+.add-post-form input[type="file"],
+.add-post-form textarea {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    font-family: inherit;
+}
+.add-post-form button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.add-post-form button:hover {
+    background: #555;
+}
+
+/* Hide elements with .hidden class */
+.hidden {
+    display: none;
+}
+
+/* Single Post Page - post.html */
+.single-post img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+.post-text {
+    margin-bottom: 1rem;
+}
+.post-text p {
+    margin-top: 1rem;
+}
+.tags {
+    margin-bottom: 1rem;
+}
+
+/* Post actions */
+.post-actions {
+    margin: 1rem 0;
+}
+.post-actions button {
+    margin-right: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+.post-actions button:hover {
+    background: #555;
+}
+.like-count {
+    margin-left: 1rem;
+}
+
+/* Comments Section */
+.comments-section {
+    border-top: 1px solid #ddd;
+    margin-top: 2rem;
+    padding-top: 1rem;
+}
+.comments-section h3 {
+    margin-bottom: 1rem;
+}
+.comment-list {
+    list-style: none;
+}
+.comment-list li {
+    background: #fafafa;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    position: relative;
+}
+.comment-text {
+    margin-bottom: 0.5rem;
+    cursor: pointer; /* to indicate it can be clicked for editing */
+}
+.remove-comment-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    font-weight: bold;
+    background: #bb0000;
+    color: #fff;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+}
+.remove-comment-btn:hover {
+    background: #dd0000;
+}
+
+/* Add Comment Form */
+.add-comment-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.add-comment-btn:hover {
+    background: #555;
+}
+.add-comment-form {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: #fafafa;
+    border: 1px solid #ddd;
+}
+.add-comment-form textarea {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+}
+.add-comment-form button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+.add-comment-form button:hover {
+    background: #555;
+}
+
+#add-post-popup, #edit-post-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px 50px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    display: none;
+    width: 90%;
+    height: 80vh;
+    max-width: 1100px;
+    border-radius: 10px;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-in-out;
+}
+#comment-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    display: none;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.popup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+.popup-actions button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+#new-comment {
+    padding: 0.5rem;
+    width: 100%;
+}
+
+#edit-text {
+    width: 100%;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 12rem;
+}
+#add-description {
+    width: 100%;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#add-text {
+    width: 100%;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#add-tags, #add-title, #add-image-url, #edit-tags, #edit-title, #edit-image-url {
+    width: 100%;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#add-image, #edit-image {
+    display: block;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+.save-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+.save-btn:hover {
+    background: #555;
+}
+.cancel-btn {
+    margin-top: 1rem;
+    background: #bb0000;
+    color: #fff;
+}
+.cancel-btn:hover {
+    background: #dd0000;
+}
+.prev-text {
+    color: #666666;
+    opacity: 0.5;
+}
+
